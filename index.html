@@ -36,18 +36,7 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- العنوان الرئيسي -->
-        <div class="main-title">
-            <h1>مراقب الصلاة</h1>
-        </div>
-
-        <!-- الموقع -->
-        <div class="location-section">
-            <h2>محافظة مسقط</h2>
-            <p>سلطنة عمان</p>
-        </div>
-
-        <!-- الوقت الحالي -->
+        <!-- الوقت الحالي - كبير وواضح -->
         <div class="time-section">
             <div id="current-time" class="current-time">--:--:-- --</div>
         </div>
@@ -58,7 +47,7 @@
             <div id="gregorian-date" class="gregorian-date">-- -- ---- م</div>
         </div>
 
-        <!-- حالة الصلاة (صفين) -->
+        <!-- حالة الصلاة - حجم خط أكبر -->
         <div class="prayer-status-section">
             <div class="status-row">
                 <div class="status-label">مضى على صلاة</div>
@@ -77,7 +66,7 @@
             </div>
         </div>
 
-        <!-- جدول مواقيت الصلاة -->
+        <!-- جدول مواقيت الصلاة - أحجام أكبر -->
         <div class="prayer-table-section">
             <div class="prayer-grid">
                 <div class="prayer-cell" data-prayer="fajr">
@@ -103,7 +92,7 @@
             </div>
         </div>
 
-        <!-- معلومات الحساب -->
+        <!-- معلومات الحساب - حجم مناسب -->
         <div class="info-section">
             <div class="info-line">
                 <span class="info-label">المكان</span>
@@ -115,7 +104,7 @@
             </div>
         </div>
 
-        <!-- الآية الكريمة -->
+        <!-- الآية الكريمة - حجم أكبر -->
         <div class="verse-section">
             <p>﴿ إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا ﴾</p>
             <p class="verse-ref">سورة النساء - الآية 103</p>
@@ -137,72 +126,6 @@
             <button id="close-install-banner" class="close-banner">✕</button>
         </div>
     </div>
-
-    <style>
-        /* ============================================
-           رسالة التثبيت
-           ============================================ */
-        .install-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, #1e2a2e, #0f1a1f);
-            border-top: 1px solid rgba(212, 184, 122, 0.3);
-            padding: 12px 16px;
-            z-index: 1000;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .install-banner.show {
-            transform: translateY(0);
-        }
-
-        .install-banner-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .install-text {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 14px;
-            color: #d4b87a;
-        }
-
-        .close-banner {
-            background: none;
-            border: none;
-            color: #9aa8a5;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 4px 8px;
-            transition: color 0.2s;
-        }
-
-        .close-banner:hover {
-            color: #d4b87a;
-        }
-
-        /* تأثير نبض للتنبيه */
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
-        }
-
-        .timer {
-            animation: pulse 2s ease-in-out infinite;
-        }
-    </style>
 
     <script src="script.js"></script>
     
@@ -228,12 +151,9 @@
         const installBanner = document.getElementById('install-banner');
         const closeBanner = document.getElementById('close-install-banner');
         
-        // الاستماع لحدث beforeinstallprompt
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            
-            // عرض رسالة التثبيت بعد تأخير قصير
             setTimeout(() => {
                 if (installBanner && deferredPrompt) {
                     installBanner.classList.add('show');
@@ -241,7 +161,6 @@
             }, 2000);
         });
         
-        // إغلاق رسالة التثبيت
         if (closeBanner) {
             closeBanner.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -249,7 +168,6 @@
             });
         }
         
-        // عند النقر على رسالة التثبيت (غير زر الإغلاق)
         if (installBanner) {
             installBanner.addEventListener('click', (e) => {
                 if (e.target !== closeBanner && deferredPrompt) {
@@ -257,8 +175,6 @@
                     deferredPrompt.userChoice.then((choiceResult) => {
                         if (choiceResult.outcome === 'accepted') {
                             console.log('User accepted the install prompt');
-                        } else {
-                            console.log('User dismissed the install prompt');
                         }
                         deferredPrompt = null;
                         installBanner.classList.remove('show');
@@ -267,9 +183,6 @@
             });
         }
         
-        // ============================================
-        // التحقق مما إذا كان التطبيق مثبتاً بالفعل
-        // ============================================
         window.addEventListener('appinstalled', (evt) => {
             console.log('App installed successfully');
             if (installBanner) {
@@ -277,12 +190,8 @@
             }
         });
         
-        // ============================================
-        // إخفاء رسالة التثبيت على iOS (حيث لا تدعم beforeinstallprompt)
-        // ============================================
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         if (isIOS && installBanner) {
-            // على iOS، نعرض رسالة مختلفة بعد فترة
             setTimeout(() => {
                 const installText = installBanner.querySelector('.install-text span:last-child');
                 if (installText) {
@@ -290,8 +199,6 @@
                 }
                 installBanner.classList.add('show');
             }, 3000);
-            
-            // إخفاء بعد 8 ثواني
             setTimeout(() => {
                 installBanner.classList.remove('show');
             }, 8000);

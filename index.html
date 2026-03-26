@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#1e2a2e">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="مواقيت مسقط">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons for different platforms -->
+    <link rel="icon" type="image/png" sizes="72x72" href="icons/icon-72x72.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/icon-96x96.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="icons/icon-128x128.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="icons/icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="152x152" href="icons/icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="384x384" href="icons/icon-384x384.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
+    
+    <!-- Apple Touch Icon (iOS) -->
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    
+    <!-- Fallback icon for older browsers -->
+    <link rel="shortcut icon" href="icons/icon-96x96.png" type="image/png">
+    
+    <title>مواقيت الصلاة - مسقط</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- العنوان الرئيسي -->
+        <div class="main-title">
+            <h1>مراقب الصلاة</h1>
+        </div>
+
+        <!-- الموقع -->
+        <div class="location-section">
+            <h2>محافظة مسقط</h2>
+            <p>سلطنة عمان</p>
+        </div>
+
+        <!-- الوقت الحالي -->
+        <div class="time-section">
+            <div id="current-time" class="current-time">--:--:-- --</div>
+        </div>
+
+        <!-- التاريخ -->
+        <div class="date-section">
+            <div id="hijri-date" class="hijri-date">-- -- ---- هـ</div>
+            <div id="gregorian-date" class="gregorian-date">-- -- ---- م</div>
+        </div>
+
+        <!-- حالة الصلاة (صفين) -->
+        <div class="prayer-status-section">
+            <div class="status-row">
+                <div class="status-label">مضى على صلاة</div>
+                <div class="status-value">
+                    <span id="current-prayer-name" class="prayer-name">----</span>
+                    <span id="since-last" class="timer">--:--:--</span>
+                </div>
+            </div>
+            <div class="status-divider"></div>
+            <div class="status-row">
+                <div class="status-label">متبقي على صلاة</div>
+                <div class="status-value">
+                    <span id="next-prayer-name" class="prayer-name">----</span>
+                    <span id="until-next" class="timer">--:--:--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- جدول مواقيت الصلاة -->
+        <div class="prayer-table-section">
+            <div class="prayer-grid">
+                <div class="prayer-cell" data-prayer="fajr">
+                    <span class="prayer-name-ar">الفجر</span>
+                    <span class="prayer-time" id="fajr-time">--:-- --</span>
+                </div>
+                <div class="prayer-cell" data-prayer="dhuhr">
+                    <span class="prayer-name-ar">الظهر</span>
+                    <span class="prayer-time" id="dhuhr-time">--:-- --</span>
+                </div>
+                <div class="prayer-cell" data-prayer="asr">
+                    <span class="prayer-name-ar">العصر</span>
+                    <span class="prayer-time" id="asr-time">--:-- --</span>
+                </div>
+                <div class="prayer-cell" data-prayer="maghrib">
+                    <span class="prayer-name-ar">المغرب</span>
+                    <span class="prayer-time" id="maghrib-time">--:-- --</span>
+                </div>
+                <div class="prayer-cell" data-prayer="isha">
+                    <span class="prayer-name-ar">العشاء</span>
+                    <span class="prayer-time" id="isha-time">--:-- --</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- معلومات الحساب -->
+        <div class="info-section">
+            <div class="info-line">
+                <span class="info-label">المكان</span>
+                <span class="info-value">مسقط، سلطنة عمان</span>
+            </div>
+            <div class="info-line">
+                <span class="info-label">طريقة الحساب</span>
+                <span class="info-value">وزارة الأوقاف والشؤون الدينية</span>
+            </div>
+        </div>
+
+        <!-- الآية الكريمة -->
+        <div class="verse-section">
+            <p>﴿ إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا ﴾</p>
+            <p class="verse-ref">سورة النساء - الآية 103</p>
+        </div>
+
+        <!-- رسالة التحميل -->
+        <div id="loading-message" class="loading-message">
+            <span>جاري تحميل مواقيت الصلاة...</span>
+        </div>
+    </div>
+
+    <!-- رسالة توجيهية لإضافة التطبيق للشاشة الرئيسية -->
+    <div id="install-banner" class="install-banner" style="display: none;">
+        <div class="install-banner-content">
+            <div class="install-text">
+                <span>📱</span>
+                <span>أضف التطبيق إلى الشاشة الرئيسية</span>
+            </div>
+            <button id="close-install-banner" class="close-banner">✕</button>
+        </div>
+    </div>
+
+    <style>
+        /* ============================================
+           رسالة التثبيت
+           ============================================ */
+        .install-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #1e2a2e, #0f1a1f);
+            border-top: 1px solid rgba(212, 184, 122, 0.3);
+            padding: 12px 16px;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .install-banner.show {
+            transform: translateY(0);
+        }
+
+        .install-banner-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .install-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #d4b87a;
+        }
+
+        .close-banner {
+            background: none;
+            border: none;
+            color: #9aa8a5;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: color 0.2s;
+        }
+
+        .close-banner:hover {
+            color: #d4b87a;
+        }
+
+        /* تأثير نبض للتنبيه */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .timer {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+
+    <script src="script.js"></script>
+    
+    <!-- تسجيل Service Worker ومعالجة إضافة التطبيق للشاشة الرئيسية -->
+    <script>
+        // ============================================
+        // تسجيل Service Worker
+        // ============================================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered successfully:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+        
+        // ============================================
+        // معالجة إضافة التطبيق للشاشة الرئيسية (PWA Install)
+        // ============================================
+        let deferredPrompt;
+        const installBanner = document.getElementById('install-banner');
+        const closeBanner = document.getElementById('close-install-banner');
+        
+        // الاستماع لحدث beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // عرض رسالة التثبيت بعد تأخير قصير
+            setTimeout(() => {
+                if (installBanner && deferredPrompt) {
+                    installBanner.classList.add('show');
+                }
+            }, 2000);
+        });
+        
+        // إغلاق رسالة التثبيت
+        if (closeBanner) {
+            closeBanner.addEventListener('click', (e) => {
+                e.stopPropagation();
+                installBanner.classList.remove('show');
+            });
+        }
+        
+        // عند النقر على رسالة التثبيت (غير زر الإغلاق)
+        if (installBanner) {
+            installBanner.addEventListener('click', (e) => {
+                if (e.target !== closeBanner && deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the install prompt');
+                        } else {
+                            console.log('User dismissed the install prompt');
+                        }
+                        deferredPrompt = null;
+                        installBanner.classList.remove('show');
+                    });
+                }
+            });
+        }
+        
+        // ============================================
+        // التحقق مما إذا كان التطبيق مثبتاً بالفعل
+        // ============================================
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('App installed successfully');
+            if (installBanner) {
+                installBanner.classList.remove('show');
+            }
+        });
+        
+        // ============================================
+        // إخفاء رسالة التثبيت على iOS (حيث لا تدعم beforeinstallprompt)
+        // ============================================
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS && installBanner) {
+            // على iOS، نعرض رسالة مختلفة بعد فترة
+            setTimeout(() => {
+                const installText = installBanner.querySelector('.install-text span:last-child');
+                if (installText) {
+                    installText.textContent = 'اضغط مشاركة ثم أضف للشاشة الرئيسية';
+                }
+                installBanner.classList.add('show');
+            }, 3000);
+            
+            // إخفاء بعد 8 ثواني
+            setTimeout(() => {
+                installBanner.classList.remove('show');
+            }, 8000);
+        }
+    </script>
+</body>
+</html>

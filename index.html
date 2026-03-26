@@ -24,18 +24,16 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- الوقت الحالي - كبير جداً -->
-        <div class="time-card">
+        <!-- الوقت والتاريخ معاً -->
+        <div class="time-date-section">
             <div id="current-time" class="current-time">--:--:-- --</div>
+            <div class="date-info">
+                <div id="hijri-date" class="hijri-date">-- -- ---- هـ</div>
+                <div id="gregorian-date" class="gregorian-date">--، -- -- ---- م</div>
+            </div>
         </div>
 
-        <!-- التاريخ - سطرين منفصلين -->
-        <div class="date-card">
-            <div id="hijri-date" class="hijri-date">-- -- ---- هـ</div>
-            <div id="gregorian-date" class="gregorian-date">--، -- -- ---- م</div>
-        </div>
-
-        <!-- حالة الصلاة - بطاقتين منفصلتين -->
+        <!-- حالة الصلاة - بطاقتين جنباً -->
         <div class="status-cards">
             <div class="status-card past">
                 <div class="status-label">مضى على صلاة</div>
@@ -49,27 +47,27 @@
             </div>
         </div>
 
-        <!-- جدول الصلوات - شبكة 2x3 أو 5 أعمدة حسب الشاشة -->
-        <div class="prayer-grid">
-            <div class="prayer-item" data-prayer="fajr">
-                <div class="prayer-name">الفجر</div>
-                <div class="prayer-time" id="fajr-time">--:-- --</div>
+        <!-- جدول مواقيت الصلاة -->
+        <div class="prayer-table">
+            <div class="prayer-row" data-prayer="fajr">
+                <span class="prayer-name">الفجر</span>
+                <span class="prayer-time" id="fajr-time">--:-- --</span>
             </div>
-            <div class="prayer-item" data-prayer="dhuhr">
-                <div class="prayer-name">الظهر</div>
-                <div class="prayer-time" id="dhuhr-time">--:-- --</div>
+            <div class="prayer-row" data-prayer="dhuhr">
+                <span class="prayer-name">الظهر</span>
+                <span class="prayer-time" id="dhuhr-time">--:-- --</span>
             </div>
-            <div class="prayer-item" data-prayer="asr">
-                <div class="prayer-name">العصر</div>
-                <div class="prayer-time" id="asr-time">--:-- --</div>
+            <div class="prayer-row" data-prayer="asr">
+                <span class="prayer-name">العصر</span>
+                <span class="prayer-time" id="asr-time">--:-- --</span>
             </div>
-            <div class="prayer-item" data-prayer="maghrib">
-                <div class="prayer-name">المغرب</div>
-                <div class="prayer-time" id="maghrib-time">--:-- --</div>
+            <div class="prayer-row" data-prayer="maghrib">
+                <span class="prayer-name">المغرب</span>
+                <span class="prayer-time" id="maghrib-time">--:-- --</span>
             </div>
-            <div class="prayer-item" data-prayer="isha">
-                <div class="prayer-name">العشاء</div>
-                <div class="prayer-time" id="isha-time">--:-- --</div>
+            <div class="prayer-row" data-prayer="isha">
+                <span class="prayer-name">العشاء</span>
+                <span class="prayer-time" id="isha-time">--:-- --</span>
             </div>
         </div>
 

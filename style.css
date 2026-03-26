@@ -9,11 +9,11 @@ body {
     background: linear-gradient(145deg, #0a1418 0%, #12222a 100%);
     color: #f0ede8;
     min-height: 100vh;
-    padding: 16px;
+    padding: 20px 16px;
 }
 
 .app-container {
-    max-width: 500px;
+    max-width: 550px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -21,53 +21,46 @@ body {
 }
 
 /* ============================================
-   بطاقة الوقت - كبيرة وواضحة
+   قسم الوقت والتاريخ معاً
    ============================================ */
-.time-card {
+.time-date-section {
     text-align: center;
     background: rgba(212, 184, 122, 0.08);
     border-radius: 32px;
-    padding: 28px 16px;
+    padding: 24px 16px 20px;
     border: 1px solid rgba(212, 184, 122, 0.3);
-    margin-top: 8px;
 }
 
 .current-time {
     font-family: 'Cairo', monospace;
-    font-size: 58px;
+    font-size: 56px;
     font-weight: 800;
     direction: ltr;
     color: #ffffff;
     letter-spacing: 4px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    margin-bottom: 16px;
 }
 
-/* ============================================
-   بطاقة التاريخ
-   ============================================ */
-.date-card {
-    text-align: center;
-    background: rgba(30, 42, 46, 0.5);
-    border-radius: 28px;
-    padding: 16px;
-    border: 1px solid rgba(212, 184, 122, 0.2);
+.date-info {
+    border-top: 1px solid rgba(212, 184, 122, 0.2);
+    padding-top: 14px;
 }
 
 .hijri-date {
     font-family: 'Amiri', serif;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     color: #d4b87a;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .gregorian-date {
-    font-size: 18px;
+    font-size: 15px;
     color: #b8c2bf;
 }
 
 /* ============================================
-   بطاقات حالة الصلاة - جنباً إلى جنب
+   بطاقات حالة الصلاة
    ============================================ */
 .status-cards {
     display: grid;
@@ -76,10 +69,10 @@ body {
 }
 
 .status-card {
-    background: rgba(30, 42, 46, 0.7);
+    background: rgba(30, 42, 46, 0.75);
     backdrop-filter: blur(10px);
     border-radius: 28px;
-    padding: 20px 12px;
+    padding: 18px 12px;
     text-align: center;
     border: 1px solid rgba(212, 184, 122, 0.3);
     transition: transform 0.2s;
@@ -90,7 +83,7 @@ body {
 }
 
 .status-label {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     color: #9aa8a5;
     letter-spacing: 0.5px;
@@ -99,7 +92,7 @@ body {
 
 .status-prayer {
     font-family: 'Amiri', serif;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     color: #d4b87a;
     margin-bottom: 12px;
@@ -107,7 +100,7 @@ body {
 
 .status-timer {
     font-family: 'Cairo', monospace;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
     direction: ltr;
     color: #ffffff;
@@ -115,53 +108,58 @@ body {
 }
 
 /* ============================================
-   شبكة مواقيت الصلاة - 5 أعمدة
+   جدول مواقيت الصلاة - صفوف
    ============================================ */
-.prayer-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+.prayer-table {
     background: rgba(30, 42, 46, 0.6);
     backdrop-filter: blur(10px);
     border-radius: 28px;
-    padding: 16px 8px;
+    padding: 8px 16px;
     border: 1px solid rgba(212, 184, 122, 0.25);
-    gap: 4px;
 }
 
-.prayer-item {
-    text-align: center;
-    padding: 14px 6px;
-    border-radius: 20px;
+.prayer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 12px;
+    border-bottom: 1px solid rgba(212, 184, 122, 0.15);
     transition: all 0.2s;
+}
+
+.prayer-row:last-child {
+    border-bottom: none;
 }
 
 .prayer-name {
     font-family: 'Amiri', serif;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 600;
     color: #ece8e0;
-    margin-bottom: 10px;
 }
 
 .prayer-time {
     font-family: 'Cairo', monospace;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     direction: ltr;
     color: #d4b87a;
 }
 
 /* تمييز الصلاة الحالية */
-.prayer-item.active {
-    background: linear-gradient(135deg, rgba(212, 184, 122, 0.25), rgba(212, 184, 122, 0.1));
-    border: 1px solid rgba(212, 184, 122, 0.5);
+.prayer-row.active {
+    background: linear-gradient(90deg, transparent, rgba(212, 184, 122, 0.2), transparent);
+    border-radius: 16px;
+    margin: 0 -8px;
+    padding: 16px 20px;
 }
 
-.prayer-item.active .prayer-name {
+.prayer-row.active .prayer-name {
     color: #f0d48e;
+    font-weight: 700;
 }
 
-.prayer-item.active .prayer-time {
+.prayer-row.active .prayer-time {
     color: #ffffff;
     font-weight: 700;
 }
@@ -170,10 +168,10 @@ body {
    معلومات إضافية
    ============================================ */
 .info-card {
-    background: rgba(30, 42, 46, 0.5);
+    background: rgba(30, 42, 46, 0.55);
     backdrop-filter: blur(8px);
     border-radius: 24px;
-    padding: 16px 20px;
+    padding: 14px 20px;
     border: 1px solid rgba(212, 184, 122, 0.2);
 }
 
@@ -181,7 +179,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
+    padding: 10px 0;
 }
 
 .info-item:first-child {
@@ -189,12 +187,12 @@ body {
 }
 
 .info-label {
-    font-size: 16px;
+    font-size: 14px;
     color: #9aa8a5;
 }
 
 .info-value {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: #d4b87a;
     text-align: left;
@@ -205,22 +203,20 @@ body {
    ============================================ */
 .verse-card {
     text-align: center;
-    background: rgba(30, 42, 46, 0.4);
-    border-radius: 24px;
-    padding: 20px 16px;
-    margin-top: 8px;
+    padding: 16px 12px;
+    margin-top: 4px;
 }
 
 .verse-text {
     font-family: 'Amiri', serif;
-    font-size: 18px;
-    line-height: 1.8;
+    font-size: 16px;
+    line-height: 1.7;
     color: #cbd5d2;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .verse-ref {
-    font-size: 13px;
+    font-size: 12px;
     color: #7e8e8b;
 }
 
@@ -241,7 +237,7 @@ body {
 
 .loading-message span {
     color: #d4b87a;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 /* ============================================
@@ -255,7 +251,7 @@ body {
     background: linear-gradient(135deg, #1e2a2e, #0f1a1f);
     border: 1px solid rgba(212, 184, 122, 0.4);
     border-radius: 60px;
-    padding: 14px 20px;
+    padding: 12px 20px;
     z-index: 1000;
     display: none;
     justify-content: space-between;
@@ -266,11 +262,11 @@ body {
 }
 
 .install-banner span:first-child {
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .install-banner span:nth-child(2) {
-    font-size: 15px;
+    font-size: 14px;
     color: #d4b87a;
     flex: 1;
     text-align: center;
@@ -280,13 +276,13 @@ body {
     background: none;
     border: none;
     color: #9aa8a5;
-    font-size: 22px;
+    font-size: 20px;
     cursor: pointer;
     padding: 0 8px;
 }
 
 /* ============================================
-   تأثيرات إضافية
+   تأثيرات
    ============================================ */
 @keyframes gentlePulse {
     0%, 100% { opacity: 1; }
@@ -302,7 +298,7 @@ body {
    ============================================ */
 @media (max-width: 480px) {
     body {
-        padding: 12px;
+        padding: 16px 12px;
     }
     
     .app-container {
@@ -310,73 +306,64 @@ body {
     }
     
     .current-time {
-        font-size: 48px;
+        font-size: 44px;
     }
     
     .hijri-date {
-        font-size: 19px;
-    }
-    
-    .gregorian-date {
-        font-size: 15px;
-    }
-    
-    .status-prayer {
-        font-size: 22px;
-    }
-    
-    .status-timer {
-        font-size: 24px;
-    }
-    
-    .prayer-name {
-        font-size: 15px;
-    }
-    
-    .prayer-time {
-        font-size: 13px;
-    }
-    
-    .prayer-grid {
-        padding: 12px 6px;
-        gap: 2px;
-    }
-    
-    .prayer-item {
-        padding: 10px 4px;
-    }
-    
-    .verse-text {
         font-size: 16px;
     }
     
-    .info-label, .info-value {
+    .gregorian-date {
+        font-size: 13px;
+    }
+    
+    .status-prayer {
+        font-size: 20px;
+    }
+    
+    .status-timer {
+        font-size: 22px;
+    }
+    
+    .prayer-name {
+        font-size: 17px;
+    }
+    
+    .prayer-time {
+        font-size: 15px;
+    }
+    
+    .prayer-row {
+        padding: 12px 8px;
+    }
+    
+    .prayer-row.active {
+        padding: 12px 16px;
+    }
+    
+    .verse-text {
         font-size: 14px;
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 380px) {
     .current-time {
-        font-size: 42px;
+        font-size: 38px;
     }
     
     .status-prayer {
-        font-size: 19px;
+        font-size: 18px;
     }
     
     .status-timer {
-        font-size: 21px;
+        font-size: 19px;
     }
     
     .prayer-name {
-        font-size: 13px;
+        font-size: 15px;
     }
     
     .prayer-time {
-        font-size: 11px;
-    }
-    
-    .hijri-date {
-        font-size: 17px;
+        font-size: 13px;
     }
 }

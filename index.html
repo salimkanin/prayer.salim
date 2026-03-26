@@ -14,100 +14,81 @@
     <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- Icons for different platforms -->
-    <link rel="icon" type="image/png" sizes="72x72" href="icons/icon-72x72.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="icons/icon-96x96.png">
-    <link rel="icon" type="image/png" sizes="128x128" href="icons/icon-128x128.png">
-    <link rel="icon" type="image/png" sizes="144x144" href="icons/icon-144x144.png">
-    <link rel="icon" type="image/png" sizes="152x152" href="icons/icon-152x152.png">
+    <!-- Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="384x384" href="icons/icon-384x384.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
-    
-    <!-- Apple Touch Icon (iOS) -->
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
-    
-    <!-- Fallback icon for older browsers -->
-    <link rel="shortcut icon" href="icons/icon-96x96.png" type="image/png">
     
     <title>مواقيت الصلاة - مسقط</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;600;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
-        <!-- الوقت الحالي - كبير وواضح -->
-        <div class="time-section">
+        <!-- الوقت الحالي - كبير جداً -->
+        <div class="time-card">
             <div id="current-time" class="current-time">--:--:-- --</div>
         </div>
 
-        <!-- التاريخ -->
-        <div class="date-section">
+        <!-- التاريخ - سطرين منفصلين -->
+        <div class="date-card">
             <div id="hijri-date" class="hijri-date">-- -- ---- هـ</div>
-            <div id="gregorian-date" class="gregorian-date">-- -- ---- م</div>
+            <div id="gregorian-date" class="gregorian-date">--، -- -- ---- م</div>
         </div>
 
-        <!-- حالة الصلاة - حجم خط أكبر -->
-        <div class="prayer-status-section">
-            <div class="status-row">
+        <!-- حالة الصلاة - بطاقتين منفصلتين -->
+        <div class="status-cards">
+            <div class="status-card past">
                 <div class="status-label">مضى على صلاة</div>
-                <div class="status-value">
-                    <span id="current-prayer-name" class="prayer-name">----</span>
-                    <span id="since-last" class="timer">--:--:--</span>
-                </div>
+                <div class="status-prayer" id="current-prayer-name">----</div>
+                <div class="status-timer" id="since-last">--:--:--</div>
             </div>
-            <div class="status-divider"></div>
-            <div class="status-row">
+            <div class="status-card next">
                 <div class="status-label">متبقي على صلاة</div>
-                <div class="status-value">
-                    <span id="next-prayer-name" class="prayer-name">----</span>
-                    <span id="until-next" class="timer">--:--:--</span>
-                </div>
+                <div class="status-prayer" id="next-prayer-name">----</div>
+                <div class="status-timer" id="until-next">--:--:--</div>
             </div>
         </div>
 
-        <!-- جدول مواقيت الصلاة - أحجام أكبر -->
-        <div class="prayer-table-section">
-            <div class="prayer-grid">
-                <div class="prayer-cell" data-prayer="fajr">
-                    <span class="prayer-name-ar">الفجر</span>
-                    <span class="prayer-time" id="fajr-time">--:-- --</span>
-                </div>
-                <div class="prayer-cell" data-prayer="dhuhr">
-                    <span class="prayer-name-ar">الظهر</span>
-                    <span class="prayer-time" id="dhuhr-time">--:-- --</span>
-                </div>
-                <div class="prayer-cell" data-prayer="asr">
-                    <span class="prayer-name-ar">العصر</span>
-                    <span class="prayer-time" id="asr-time">--:-- --</span>
-                </div>
-                <div class="prayer-cell" data-prayer="maghrib">
-                    <span class="prayer-name-ar">المغرب</span>
-                    <span class="prayer-time" id="maghrib-time">--:-- --</span>
-                </div>
-                <div class="prayer-cell" data-prayer="isha">
-                    <span class="prayer-name-ar">العشاء</span>
-                    <span class="prayer-time" id="isha-time">--:-- --</span>
-                </div>
+        <!-- جدول الصلوات - شبكة 2x3 أو 5 أعمدة حسب الشاشة -->
+        <div class="prayer-grid">
+            <div class="prayer-item" data-prayer="fajr">
+                <div class="prayer-name">الفجر</div>
+                <div class="prayer-time" id="fajr-time">--:-- --</div>
+            </div>
+            <div class="prayer-item" data-prayer="dhuhr">
+                <div class="prayer-name">الظهر</div>
+                <div class="prayer-time" id="dhuhr-time">--:-- --</div>
+            </div>
+            <div class="prayer-item" data-prayer="asr">
+                <div class="prayer-name">العصر</div>
+                <div class="prayer-time" id="asr-time">--:-- --</div>
+            </div>
+            <div class="prayer-item" data-prayer="maghrib">
+                <div class="prayer-name">المغرب</div>
+                <div class="prayer-time" id="maghrib-time">--:-- --</div>
+            </div>
+            <div class="prayer-item" data-prayer="isha">
+                <div class="prayer-name">العشاء</div>
+                <div class="prayer-time" id="isha-time">--:-- --</div>
             </div>
         </div>
 
-        <!-- معلومات الحساب - حجم مناسب -->
-        <div class="info-section">
-            <div class="info-line">
+        <!-- معلومات إضافية -->
+        <div class="info-card">
+            <div class="info-item">
                 <span class="info-label">المكان</span>
                 <span class="info-value">مسقط، سلطنة عمان</span>
             </div>
-            <div class="info-line">
+            <div class="info-item">
                 <span class="info-label">طريقة الحساب</span>
-                <span class="info-value">وزارة الأوقاف والشؤون الدينية</span>
+                <span class="info-value">وزارة الأوقاف العمانية</span>
             </div>
         </div>
 
-        <!-- الآية الكريمة - حجم أكبر -->
-        <div class="verse-section">
-            <p>﴿ إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا ﴾</p>
-            <p class="verse-ref">سورة النساء - الآية 103</p>
+        <!-- الآية الكريمة -->
+        <div class="verse-card">
+            <div class="verse-text">﴿ إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا ﴾</div>
+            <div class="verse-ref">سورة النساء - الآية 103</div>
         </div>
 
         <!-- رسالة التحميل -->
@@ -116,93 +97,40 @@
         </div>
     </div>
 
-    <!-- رسالة توجيهية لإضافة التطبيق للشاشة الرئيسية -->
+    <!-- رسالة التثبيت -->
     <div id="install-banner" class="install-banner" style="display: none;">
         <div class="install-banner-content">
-            <div class="install-text">
-                <span>📱</span>
-                <span>أضف التطبيق إلى الشاشة الرئيسية</span>
-            </div>
+            <span>📱</span>
+            <span>أضف التطبيق إلى الشاشة الرئيسية</span>
             <button id="close-install-banner" class="close-banner">✕</button>
         </div>
     </div>
 
     <script src="script.js"></script>
-    
-    <!-- تسجيل Service Worker ومعالجة إضافة التطبيق للشاشة الرئيسية -->
     <script>
-        // ============================================
-        // تسجيل Service Worker
-        // ============================================
+        // Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(function(registration) {
-                    console.log('Service Worker registered successfully:', registration.scope);
-                })
-                .catch(function(error) {
-                    console.log('Service Worker registration failed:', error);
-                });
+            navigator.serviceWorker.register('/sw.js').catch(console.log);
         }
         
-        // ============================================
-        // معالجة إضافة التطبيق للشاشة الرئيسية (PWA Install)
-        // ============================================
+        // PWA Install
         let deferredPrompt;
-        const installBanner = document.getElementById('install-banner');
-        const closeBanner = document.getElementById('close-install-banner');
+        const banner = document.getElementById('install-banner');
+        const closeBtn = document.getElementById('close-install-banner');
         
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            setTimeout(() => {
-                if (installBanner && deferredPrompt) {
-                    installBanner.classList.add('show');
-                }
-            }, 2000);
+            setTimeout(() => { if(banner) banner.style.display = 'flex'; }, 2000);
         });
         
-        if (closeBanner) {
-            closeBanner.addEventListener('click', (e) => {
-                e.stopPropagation();
-                installBanner.classList.remove('show');
-            });
-        }
-        
-        if (installBanner) {
-            installBanner.addEventListener('click', (e) => {
-                if (e.target !== closeBanner && deferredPrompt) {
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('User accepted the install prompt');
-                        }
-                        deferredPrompt = null;
-                        installBanner.classList.remove('show');
-                    });
-                }
-            });
-        }
-        
-        window.addEventListener('appinstalled', (evt) => {
-            console.log('App installed successfully');
-            if (installBanner) {
-                installBanner.classList.remove('show');
+        if(closeBtn) closeBtn.onclick = () => banner.style.display = 'none';
+        if(banner) banner.onclick = (e) => {
+            if(e.target !== closeBtn && deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => banner.style.display = 'none');
             }
-        });
-        
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        if (isIOS && installBanner) {
-            setTimeout(() => {
-                const installText = installBanner.querySelector('.install-text span:last-child');
-                if (installText) {
-                    installText.textContent = 'اضغط مشاركة ثم أضف للشاشة الرئيسية';
-                }
-                installBanner.classList.add('show');
-            }, 3000);
-            setTimeout(() => {
-                installBanner.classList.remove('show');
-            }, 8000);
-        }
+        };
     </script>
 </body>
 </html>
